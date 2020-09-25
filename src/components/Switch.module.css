@@ -1,0 +1,161 @@
+.pureMaterialSwitch {
+  z-index: 0;
+  position: relative;
+  display: inline-block;
+  color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+  font-family: var(
+    --pure-material-font,
+    'Roboto',
+    'Segoe UI',
+    BlinkMacSystemFont,
+    system-ui,
+    -apple-system
+  );
+  font-size: 1rem;
+  line-height: 2rem;
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Input */
+.pureMaterialSwitch > input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  z-index: -1;
+  position: absolute;
+  left: 6px;
+  top: -4px;
+  display: block;
+  margin: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+  outline: none;
+  opacity: 0;
+  transform: scale(1);
+  pointer-events: none;
+  transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
+}
+
+/* Span */
+.pureMaterialSwitch > span {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Track */
+.pureMaterialSwitch > span::before {
+  content: '';
+  float: left;
+  margin: 5px 10px 5px 0;
+  border-radius: 12px;
+  width: 45px;
+  height: 24px;
+  background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+  vertical-align: top;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Thumb */
+.pureMaterialSwitch > span::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 2px;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Checked */
+
+.pureMaterialSwitch > input:checked {
+  left: -10px;
+  background-color: #f58339;
+}
+
+.pureMaterialSwitch > input:checked + span::before {
+  background-color: #f58339;
+}
+.green.pureMaterialSwitch > input:checked {
+  background-color: greenyellow;
+}
+.green.pureMaterialSwitch > input:checked + span::before {
+  background-color: greenyellow;
+}
+
+.pureMaterialSwitch > input:checked + span::after {
+  transform: translateX(19px);
+}
+
+/* Hover, Focus */
+.pureMaterialSwitch:hover > input {
+  opacity: 0.04;
+}
+
+.pureMaterialSwitch > input:focus {
+  opacity: 0.12;
+}
+
+.pureMaterialSwitch:hover > input:focus {
+  opacity: 0.16;
+}
+
+/* Active */
+.pureMaterialSwitch > input:active {
+  opacity: 1;
+  transform: scale(0);
+  transition: transform 0s, opacity 0s;
+}
+
+.pureMaterialSwitch > input:active + span::before {
+  background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.6);
+}
+
+.pureMaterialSwitch > input:checked:active + span::before {
+  background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+}
+
+/* Disabled */
+.pureMaterialSwitch > input:disabled {
+  opacity: 0;
+}
+
+.pureMaterialSwitch > input:disabled + span {
+  color: rgb(var(--pure-material-onsurface-rgb, 0, 0, 0));
+  opacity: 0.38;
+  cursor: default;
+}
+
+.pureMaterialSwitch > input:disabled + span::before {
+  background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+}
+
+.pureMaterialSwitch > input:checked:disabled + span::before {
+  background-color: rgba(var(--pure-material-primary-rgb, 33, 150, 243), 0.6);
+}
+
+[aria-pressed='true'] {
+  box-shadow: 1px 1px 1px #000;
+}
