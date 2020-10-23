@@ -39,6 +39,47 @@ const GreenToggle = (props) => (
   </ToggleRenderProps>
 );
 
+function UsageToggleRenderPropsWithReducer() {
+  const initialState = 0;
+  const [timesClicked, setTimesClicked] = React.useState(initialState);
+
+  const handleToggle = (...args) => setTimesClicked((timesClicked) => timesClicked + 1);
+
+  const handleReset = (...args) => setTimesClicked(initialState);
+
+  const toggleStateReducer = (state, changes) => {
+    if (timesClicked >= 4) {
+      return false;
+    }
+    return changes;
+  };
+
+  return (
+    <ToggleRenderPropsWithReducer
+      stateReducer={toggleStateReducer}
+      onToggle={handleToggle}
+      onReset={handleReset}>
+      {({ getTogglerProps, reset, on }) => (
+        <div>
+          <Switch
+            {...getTogglerProps({
+              on
+            })}
+          />
+          {timesClicked > 4 ? (
+            <div>Whoa, you clicked too much {timesClicked}</div>
+          ) : timesClicked > 0 ? (
+            <div>Click count: {timesClicked} </div>
+          ) : null}
+          <div>
+            <button onClick={reset}>Reset</button>
+          </div>
+        </div>
+      )}
+    </ToggleRenderPropsWithReducer>
+  );
+}
+
 export default function App() {
   return (
     <ErrorCatcher>
@@ -141,20 +182,7 @@ export default function App() {
         </div>
         <div>
           <hr />
-          <ToggleRenderPropsWithReducer
-            initialOn={true}
-            onToggle={(on) => console.log(on)}
-            onReset={(...args) => console.log(...args)}>
-            {({ on, toggle, reset }) => (
-              <div>
-                <div>{on ? 'The button is on' : 'The button is off'}</div>
-                <Switch on={on} onChange={toggle} />
-                <div>
-                  <button onClick={reset}>Reset</button>
-                </div>
-              </div>
-            )}
-          </ToggleRenderPropsWithReducer>
+          <UsageToggleRenderPropsWithReducer />
         </div>
       </div>
     </ErrorCatcher>

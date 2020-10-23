@@ -11,20 +11,35 @@ export default function ToggleRenderPropsWithReducer({
   onToggle = () => {},
   initialOn = false,
   onReset = () => {},
-  children
+  children,
+  stateReducer = (state, changes) => changes
 }) {
   const initialState = initialOn;
 
+  const firstUpdate = React.useRef(true);
+
   const [on, setOn] = React.useState(initialState);
+
+  const internalSetState = (changes, callback) => {
+    setOn((on) => {
+      const changesObject = typeof changes === 'function' ? changes(on) : changes;
+      const reducedChanges = stateReducer(on, changesObject);
+      return reducedChanges;
+    }, callback);
+  };
 
   // onToggle reusable function
   React.useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     typeof onToggle === 'function' && onToggle(on);
   }, [on]);
 
-  const toggle = () => setOn((on) => !on);
+  const toggle = () => internalSetState((on) => !on);
   const reset = () => {
-    setOn(initialState);
+    internalSetState(initialState);
     onReset();
   };
 
